@@ -32,6 +32,9 @@ jobs:
           cp AndroidManifest.xml app/src/main/AndroidManifest.xml
           cp ./*.java app/src/main/java/com/roohu/clipforge/
           cp Roohu-ClipForge.html validate.js motion.js app/src/main/assets/
+          mkdir -p shared/core shared/test
+          cp validate.js motion.js shared/core/
+          cp ./*.test.js shared/test/
           cp activity_main.xml app/src/main/res/layout/activity_main.xml
           cp colors.xml strings.xml themes.xml app/src/main/res/values/
           cp splash_bg.xml splash_glow.xml splash_logo.xml ic_launcher_foreground.xml app/src/main/res/drawable/
@@ -101,10 +104,10 @@ jobs:
       - name: Run JavaScript regression tests
         run: |
           node --version
-          node validate.test.js
-          node projects.test.js
-          node subtitles.test.js
-          node motion.test.js
+          node shared/test/validate.test.js
+          node shared/test/projects.test.js
+          node shared/test/subtitles.test.js
+          node shared/test/motion.test.js
 
       - name: Build debug APK
         run: gradle --no-daemon --stacktrace :app:assembleDebug
