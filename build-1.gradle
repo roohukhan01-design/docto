@@ -41,6 +41,12 @@ android {
         resources { excludes += ['/META-INF/{AL2.0,LGPL2.1}', '/META-INF/DEPENDENCIES'] }
     }
 }
+configurations.configureEach {
+    // Vosk/JNA bring older split Kotlin stdlib jars that duplicate classes in newer stdlib.
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk7'
+    exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
+}
+
 dependencies {
     implementation 'androidx.activity:activity:1.9.0'
     implementation 'androidx.webkit:webkit:1.11.0'
